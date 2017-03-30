@@ -35,8 +35,6 @@ package org.firstinspires.ftc.TommyNewb;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.NewbHardware;
-
 
 @TeleOp(name="Newb OpMode", group="Pushbot")
 //@Disabled

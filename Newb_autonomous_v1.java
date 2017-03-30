@@ -36,8 +36,6 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-import org.firstinspires.ftc.NewbHardware;
-
 
 @TeleOp(name="Newb OpMode2", group="Pushbot")
 //@Disabled
