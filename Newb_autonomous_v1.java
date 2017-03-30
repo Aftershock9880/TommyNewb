@@ -43,8 +43,11 @@ public class Newb_autonomous_v1 extends OpMode{
 
     /* Declare OpMode members. */
     NewbHardware robot       = new NewbHardware();
-    final int THREE_REV = 4320;
-    final int TURN_45_DEGREES = 360;
+    private final int THREE_REV = 4320;
+    private final int TURN_45_DEGREES = 360;
+    private byte counter = 0;
+    private int leftEncoder = 0;
+    private int rightEncoder = 0;
 
     /*
      * Code to run ONCE when the driver hits INIT
@@ -57,7 +60,7 @@ public class Newb_autonomous_v1 extends OpMode{
         robot.init(hardwareMap);
 
         // Send telemetry message to signify robot waiting;
-        telemetry.addData("Baby oh baby", "Prepare for disappointment");
+        telemetry.addData("Baby oh baby, ", "Prepare for disappointment");
 
         robot.leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -89,10 +92,11 @@ public class Newb_autonomous_v1 extends OpMode{
     public void loop() {
         telemetry.addData("Left_Encoder", robot.leftMotor.getCurrentPosition());
         telemetry.addData("Right_Encoder", robot.rightMotor.getCurrentPosition());
-        byte counter = 0;
         telemetry.addData("Current_Case", counter);
-        int leftEncoder = 0;
-        int rightEncoder = 0;
+
+
+
+
         switch (counter)
         {
             case 0:
@@ -102,7 +106,7 @@ public class Newb_autonomous_v1 extends OpMode{
                     robot.rightMotor.setPower(0);
                     leftEncoder = robot.leftMotor.getCurrentPosition();
                     rightEncoder = robot.rightMotor.getCurrentPosition();
-                    counter++;
+                    counter ++;
                 }
 
                 break;
@@ -110,19 +114,20 @@ public class Newb_autonomous_v1 extends OpMode{
             case 1:
                 robot.leftMotor.setPower(.5);
                 robot.rightMotor.setPower(-.5);
-                counter++;
 
-                break;
-
-            case 2:
-                if (robot.leftMotor.getCurrentPosition() >= TURN_45_DEGREES + leftEncoder &&
-                        robot.rightMotor.getCurrentPosition() <= TURN_45_DEGREES - rightEncoder) {
-                    robot.leftMotor.setPower(0);
-                    robot.rightMotor.setPower(0);
+                if (robot.leftMotor.getCurrentPosition() >= leftEncoder + TURN_45_DEGREES &&
+                        robot.rightMotor.getCurrentPosition() <= rightEncoder - TURN_45_DEGREES) {
                     leftEncoder = robot.leftMotor.getCurrentPosition();
                     rightEncoder = robot.rightMotor.getCurrentPosition();
                     counter++;
                 }
+
+                break;
+
+            case 2:
+                    robot.leftMotor.setPower(0);
+                    robot.rightMotor.setPower(0);
+                    counter ++;
 
                 break;
 
