@@ -36,12 +36,12 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 
-@TeleOp(name="Newb OpMode", group="Pushbot")
+@TeleOp(name="Newb Teleop v1", group="TommyNewb")
 //@Disabled
-public class Newb_code_v1 extends OpMode{
+public class Newb_Teleop_v1 extends OpMode{
 
     /* Declare OpMode members. */
-    NewbHardware robot       = new NewbHardware();
+    NewbHardware robot = new NewbHardware();
 
     /*
      * Code to run ONCE when the driver hits INIT
@@ -54,7 +54,7 @@ public class Newb_code_v1 extends OpMode{
         robot.init(hardwareMap);
 
         // Send telemetry message to signify robot waiting;
-        telemetry.addData("Go forth to victory", "Lok'tar Ogar!");    //
+        telemetry.addData("Victory or Death! ", "Lok'tar Ogar!");    //
     }
 
     /*
@@ -76,27 +76,33 @@ public class Newb_code_v1 extends OpMode{
      */
     @Override
     public void loop() {
-        double forward;
-        forward = -gamepad1.left_stick_y;
-        telemetry.addData("left_y",-gamepad1.left_stick_y);
-        telemetry.addData("right_x",gamepad1.right_stick_x);
-        //telemetry.addData("left_encoder",robot.leftMotor.getCurrentPosition());
-        //telemetry.addData("right_encoder",robot.rightMotor.getCurrentPosition());
+        telemetry.addData("left_y", -gamepad1.left_stick_y);
+        telemetry.addData("right_x", gamepad1.right_stick_x);
 
-        //robot.leftMotor.setPower(gamepad1.left_trigger);
-        //robot.rightMotor.setPower(gamepad1.right_trigger);
 
         if (gamepad1.right_stick_x > .5) {
-            robot.leftMotor.setPower(-.5);
-            robot.rightMotor.setPower(.5);
+            robot.leftMotor.setPower(.5);
+            robot.rightMotor.setPower(-.5);
         } else {
 
             if (gamepad1.right_stick_x < -.5) {
-                robot.leftMotor.setPower(.5);
-                robot.rightMotor.setPower(-.5);
+                robot.leftMotor.setPower(-.5);
+                robot.rightMotor.setPower(.5);
             } else {
-                robot.rightMotor.setPower(forward);
-                robot.leftMotor.setPower(forward);
+
+                if (gamepad1.right_stick_x < -.5 && gamepad1.left_stick_y < -.5) {
+                    robot.leftMotor.setPower(.5);
+                    robot.rightMotor.setPower(.1);
+                } else {
+
+                    if (gamepad1.right_stick_x > .5 && gamepad1.left_stick_y > .5) {
+                        robot.leftMotor.setPower(.1);
+                        robot.rightMotor.setPower(.5);
+                    } else {
+                        robot.rightMotor.setPower(-gamepad1.left_stick_y);
+                        robot.leftMotor.setPower(-gamepad1.left_stick_y);
+                    }
+                }
             }
         }
     }

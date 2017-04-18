@@ -33,18 +33,18 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package org.firstinspires.ftc.TommyNewb;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 
-@TeleOp(name="Newb OpMode2", group="Pushbot")
+@Autonomous(name="Newb autonomous v1", group="TommyNewb")
 //@Disabled
-public class Newb_autonomous_v1 extends OpMode{
+public class Newb_Autonomous_v1 extends OpMode{
 
     /* Declare OpMode members. */
-    NewbHardware robot       = new NewbHardware();
+    NewbHardware robot = new NewbHardware();
     private final int THREE_REV = 4320;
-    private final int TURN_45_DEGREES = 360;
+    private final int TURN_90_DEGREES = 720;
     private byte counter = 0;
     private int leftEncoder = 0;
     private int rightEncoder = 0;
@@ -115,8 +115,8 @@ public class Newb_autonomous_v1 extends OpMode{
                 robot.leftMotor.setPower(.5);
                 robot.rightMotor.setPower(-.5);
 
-                if (robot.leftMotor.getCurrentPosition() >= leftEncoder + TURN_45_DEGREES &&
-                        robot.rightMotor.getCurrentPosition() <= rightEncoder - TURN_45_DEGREES) {
+                if (robot.leftMotor.getCurrentPosition() >= leftEncoder + TURN_90_DEGREES &&
+                        robot.rightMotor.getCurrentPosition() <= rightEncoder - TURN_90_DEGREES) {
                     leftEncoder = robot.leftMotor.getCurrentPosition();
                     rightEncoder = robot.rightMotor.getCurrentPosition();
                     counter++;

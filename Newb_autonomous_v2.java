@@ -9,14 +9,16 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 
-@Autonomous(name="Newb OpMode2", group="Pushbot")
+@Autonomous(name="Newb Autonomous v2", group="TommyNewb")
 //@Disabled
-public class Newb_autonomous_v2 extends LinearOpMode{
+public class Newb_Autonomous_v2 extends LinearOpMode{
 
-    NewbHardware robot       = new NewbHardware();
+    NewbHardware robot = new NewbHardware();
+    private final int ONE_REV = 1440;
+    private final int TWO_REV = 2880;
+    private final int TURN_180_DEGREES = 2160;
     private final int THREE_REV = 4320;
-    private final int TURN_45_DEGREES = 360;
-    private byte counter = 0;
+    private final int FOUR_REV =  5760;
     private int leftEncoder = 0;
     private int rightEncoder = 0;
 
@@ -27,7 +29,7 @@ public class Newb_autonomous_v2 extends LinearOpMode{
         robot.init(hardwareMap);
 
         // Send telemetry message to signify robot waiting;
-        telemetry.addData("Baby oh baby, ", "Prepare for disappointment");
+        telemetry.addData("Victory or Death! ", "Lok'tar Ogar!");
 
         robot.leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -40,35 +42,62 @@ public class Newb_autonomous_v2 extends LinearOpMode{
         robot.leftMotor.setPower(.5);
         robot.rightMotor.setPower(.5);
 
-        telemetry.addData("Left_Encoder", robot.leftMotor.getCurrentPosition());
-        telemetry.addData("Right_Encoder", robot.rightMotor.getCurrentPosition());
-        telemetry.addData("Current_Case", counter);
+        robot.leftMotor.setTargetPosition(THREE_REV);
+        robot.rightMotor.setTargetPosition(THREE_REV);
 
+        while (robot.leftMotor.isBusy() && robot.rightMotor.isBusy() && opModeIsActive()) {
+            telemetry.addData("Left_Encoder", robot.leftMotor.getCurrentPosition());
+            telemetry.addData("Right_Encoder", robot.rightMotor.getCurrentPosition());
+        }
+        leftEncoder = robot.leftMotor.getCurrentPosition();
+        rightEncoder = robot.rightMotor.getCurrentPosition();
 
+        robot.leftMotor.setTargetPosition(leftEncoder + ONE_REV);
+        robot.rightMotor.setTargetPosition(rightEncoder - ONE_REV);
 
-
-        if (robot.leftMotor.getCurrentPosition() >= THREE_REV &&
-                robot.rightMotor.getCurrentPosition() >= THREE_REV) {
-            robot.leftMotor.setPower(0);
-            robot.rightMotor.setPower(0);
-            leftEncoder = robot.leftMotor.getCurrentPosition();
-            rightEncoder = robot.rightMotor.getCurrentPosition();
-            counter ++;
+        while (robot.leftMotor.isBusy() && robot.rightMotor.isBusy() && opModeIsActive()) {
+            telemetry.addData("Left_Encoder", robot.leftMotor.getCurrentPosition());
+            telemetry.addData("Right_Encoder", robot.rightMotor.getCurrentPosition());
         }
 
-        robot.leftMotor.setPower(.5);
-        robot.rightMotor.setPower(-.5);
+        leftEncoder = robot.leftMotor.getCurrentPosition();
+        rightEncoder = robot.rightMotor.getCurrentPosition();
 
-        if (robot.leftMotor.getCurrentPosition() >= leftEncoder + TURN_45_DEGREES &&
-                robot.rightMotor.getCurrentPosition() <= rightEncoder - TURN_45_DEGREES) {
-            leftEncoder = robot.leftMotor.getCurrentPosition();
-            rightEncoder = robot.rightMotor.getCurrentPosition();
-            counter++;
+        robot.leftMotor.setTargetPosition(leftEncoder + TWO_REV);
+        robot.rightMotor.setTargetPosition(rightEncoder + TWO_REV);
+
+        while (robot.leftMotor.isBusy() && robot.rightMotor.isBusy() && opModeIsActive()) {
+            telemetry.addData("Left_Encoder", robot.leftMotor.getCurrentPosition());
+            telemetry.addData("Right_Encoder", robot.rightMotor.getCurrentPosition());
         }
+
+        leftEncoder = robot.leftMotor.getCurrentPosition();
+        rightEncoder = robot.rightMotor.getCurrentPosition();
+
+        robot.leftMotor.setTargetPosition(leftEncoder + TURN_180_DEGREES);
+        robot.rightMotor.setTargetPosition(rightEncoder - TURN_180_DEGREES);
+
+        while (robot.leftMotor.isBusy() && robot.rightMotor.isBusy() && opModeIsActive()) {
+            telemetry.addData("Left_Encoder", robot.leftMotor.getCurrentPosition());
+            telemetry.addData("Right_Encoder", robot.rightMotor.getCurrentPosition());
+        }
+
+        leftEncoder = robot.leftMotor.getCurrentPosition();
+        rightEncoder = robot.rightMotor.getCurrentPosition();
+
+        robot.leftMotor.setTargetPosition(leftEncoder + FOUR_REV);
+        robot.rightMotor.setTargetPosition(rightEncoder + FOUR_REV);
+
+        while (robot.leftMotor.isBusy() && robot.rightMotor.isBusy() && opModeIsActive()) {
+            telemetry.addData("Left_Encoder", robot.leftMotor.getCurrentPosition());
+            telemetry.addData("Right_Encoder", robot.rightMotor.getCurrentPosition());
+        }
+
+        leftEncoder = robot.leftMotor.getCurrentPosition();
+        rightEncoder = robot.rightMotor.getCurrentPosition();
 
         robot.leftMotor.setPower(0);
         robot.rightMotor.setPower(0);
-        counter ++;
 
     }
 }
