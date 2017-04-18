@@ -95,13 +95,8 @@ public class Newb_Teleop_v1 extends OpMode{
                     robot.rightMotor.setPower(.1);
                 } else {
 
-                    if (gamepad1.right_stick_x > .5 && gamepad1.left_stick_y > .5) {
-                        robot.leftMotor.setPower(.1);
-                        robot.rightMotor.setPower(.5);
-                    } else {
-                        robot.rightMotor.setPower(-gamepad1.left_stick_y);
-                        robot.leftMotor.setPower(-gamepad1.left_stick_y);
-                    }
+                    robot.rightMotor.setPower(-gamepad1.left_stick_y);
+                    robot.leftMotor.setPower(-gamepad1.left_stick_y);
                 }
             }
         }

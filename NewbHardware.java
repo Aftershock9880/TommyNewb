@@ -44,15 +44,16 @@ public class NewbHardware
         // Define and Initialize Motors
         leftMotor   = hwMap.dcMotor.get("left_drive");
         rightMotor  = hwMap.dcMotor.get("right_drive");
-        leftMotor.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark motors
-        rightMotor.setDirection(DcMotor.Direction.FORWARD);// Set to FORWARD if using AndyMark motors
+        leftMotor.setDirection(DcMotor.Direction.REVERSE);
+        rightMotor.setDirection(DcMotor.Direction.FORWARD);
+        // Motors are technically running in reverse, so don't always use this configuration
+        // Unless you put the motors on backwards again or are using Andymark motors
 
         // Set all motors to zero power
         leftMotor.setPower(0);
         rightMotor.setPower(0);
 
-        // Set all motors to run without encoders.
-        // May want to use RUN_USING_ENCODERS if encoders are installed.
+        // Set all motors to run with encoders.
         //leftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         //rightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
