@@ -2,10 +2,11 @@ package org.firstinspires.ftc.TommyNewb;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 
-@Autonomous(name="Newb autonomous v1", group="TommyNewb")
+@TeleOp(name="Newb Teleop v2", group="TommyNewb")
 //@Disabled
 public class Newb_Teleop_v2 extends OpMode{
 
@@ -39,8 +40,6 @@ public class Newb_Teleop_v2 extends OpMode{
      */
     @Override
     public void start() {
-        robot.leftMotor.setPower(.5);
-        robot.rightMotor.setPower(.5);
     }
 
     /*
@@ -76,8 +75,38 @@ public class Newb_Teleop_v2 extends OpMode{
                 break;
 
             case 2:
+                if (gamepad1.right_stick_x >= .5) {
+                    robot.leftMotor.setPower(.5);
+                    robot.rightMotor.setPower(-.5);
+                }
+                counter ++;
 
-                    counter ++;
+                break;
+
+            case 3:
+                if (gamepad1.left_stick_y <= -.5 && gamepad1.right_stick_x <=-.5) {
+                    robot.leftMotor.setPower(.1);
+                    robot.rightMotor.setPower(.5);
+                }
+                counter++;
+
+                break;
+
+            case 4:
+                if (gamepad1.left_stick_y <= -.5 && gamepad1.right_stick_x >= .5) {
+                    robot.leftMotor.setPower(.1);
+                    robot.rightMotor.setPower(.5);
+                }
+                counter++;
+
+                break;
+
+            case 5:
+                if (gamepad1.left_stick_y >= .5) {
+                    robot.leftMotor.setPower(-.5);
+                    robot.rightMotor.setPower(-.5);
+                }
+                counter++;
 
                 break;
 
